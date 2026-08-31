@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIT &amp; FIGHT CLUB — Ops Console</title>
+<meta name="description" content="Multi-branch gym CRM prototype for FIT & FIGHT CLUB — leads, trials, members, memberships, payments, scheduling, attendance and reports.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="nav" id="navRail">
+    <div class="nav-brand">
+      <div class="mark">
+        <div class="knot">F&amp;F</div>
+        <div>
+          <div class="word disp">FIT <b>&amp;</b> FIGHT<br>CLUB</div>
+        </div>
+      </div>
+      <div class="sub">OPS CONSOLE · VASHI / NERUL / WAGHOLI</div>
+    </div>
+
+    <div class="nav-section-label">Grow</div>
+    <ul class="nav-list" id="navGrow"></ul>
+
+    <div class="nav-section-label">Members</div>
+    <ul class="nav-list" id="navMembers"></ul>
+
+    <div class="nav-section-label">Operate</div>
+    <ul class="nav-list" id="navOperate"></ul>
+
+    <div class="nav-section-label">Engage</div>
+    <ul class="nav-list" id="navComms"></ul>
+
+    <div class="nav-section-label">Insight</div>
+    <ul class="nav-list" id="navInsight"></ul>
+
+    <div class="nav-foot">
+      <div class="avatar" id="whoAvatar">FA</div>
+      <div>
+        <div class="who" id="whoName">Founder / Admin</div>
+        <div class="role" id="whoRole">All-access</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="iconbtn" id="navToggle" style="display:none" title="Menu" aria-label="Toggle navigation">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div>
+        <h1 class="disp" id="pageTitle">Dashboard</h1>
+        <div class="today" id="pageToday"></div>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="chiprow" id="branchFilterRow"></div>
+      <select class="uisel" id="roleSelect" title="View as role"></select>
+    </header>
+    <main class="view" id="view"></main>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" id="modalBox" role="dialog" aria-modal="true">
+    <div class="mhead">
+      <h3 id="modalTitle">Title</h3>
+      <button class="xbtn" id="modalClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="mbody" id="modalBody"></div>
+    <div class="mfoot" id="modalFoot"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
