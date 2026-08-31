@@ -179,6 +179,7 @@ button{ font-family:inherit; }
   cursor:pointer; color:var(--ink-2); font-size:13.5px; font-weight:500;
   border:1px solid transparent; background:none; width:100%; text-align:left;
 }
+svg.ic{ width:16px; height:16px; flex:0 0 auto; }
 .nav-item .ic{ width:17px; height:17px; flex:0 0 auto; opacity:.85; }
 .nav-item:hover{ background:var(--surface-2); color:var(--ink); }
 .nav-item.active{
@@ -187,14 +188,20 @@ button{ font-family:inherit; }
 
 .nav-foot{
   margin-top:auto; padding:12px 18px 16px; border-top:1px solid var(--border);
-  display:flex; align-items:center; gap:9px;
+  display:flex; align-items:center; gap:9px; justify-content:space-between;
 }
+.nav-foot .who-row{ display:flex; align-items:center; gap:9px; min-width:0; }
 .nav-foot .avatar{
   width:28px;height:28px;border-radius:50%; background:var(--surface-2); border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center; font-size:11px; font-weight:700; color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center; font-size:11px; font-weight:700; color:var(--ink-2); flex:0 0 auto;
 }
-.nav-foot .who{ font-size:12.5px; font-weight:600; }
+.nav-foot .who{ font-size:12.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .nav-foot .role{ font-size:10.5px; color:var(--ink-3); }
+.logout-btn{
+  flex:0 0 auto; width:28px; height:28px; border-radius:var(--radius-sm); border:1px solid var(--border);
+  background:transparent; color:var(--ink-3); display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.logout-btn:hover{ color:var(--brass-ink); border-color:var(--brass-fill); }
 
 .main{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; }
 
@@ -409,6 +416,57 @@ table.tbl td.num, table.tbl th.num{ text-align:right; font-family:"Inter"; font-
   background:var(--brass-soft); color:var(--brass-ink); font-size:12px; font-weight:600; margin-bottom:16px;
 }
 
+/* ============================================================
+   Login screen
+   ============================================================ */
+.login-screen{
+  position:fixed; inset:0; z-index:500; overflow-y:auto;
+  background:
+    radial-gradient(900px 500px at 15% -10%, rgba(232,64,43,0.16), transparent 60%),
+    #111216;
+  display:flex; align-items:center; justify-content:center; padding:6vh 16px;
+}
+.login-card{
+  width:100%; max-width:400px; background:#1A1C22; border:1px solid #31343E; border-radius:var(--radius-lg);
+  box-shadow:0 20px 60px rgba(0,0,0,0.45); padding:26px 26px 22px; color:#EDEEF2;
+}
+.login-logo{
+  background:#F4F2ED; border-radius:var(--radius-md); padding:10px 12px; display:flex; align-items:center;
+  width:150px; margin:0 auto 18px;
+}
+.login-logo img{ display:block; width:100%; height:auto; }
+.login-card h2{ font-size:16px; text-align:center; }
+.login-card .sub{ text-align:center; font-size:12px; color:#9AA0AC; margin-top:4px; margin-bottom:20px; }
+.login-field{ margin-bottom:13px; }
+.login-field label{ display:block; font-size:11.5px; font-weight:600; color:#9AA0AC; margin-bottom:5px; }
+.login-field input{
+  width:100%; padding:10px 11px; border-radius:var(--radius-sm); border:1px solid #3D404B;
+  background:#111216; color:#EDEEF2; font-size:13px; font-family:inherit;
+}
+.login-field input:focus{ outline:2px solid #E8402B; outline-offset:1px; border-color:#E8402B; }
+.login-error{
+  display:none; background:rgba(232,64,43,0.15); color:#FF9587; border:1px solid rgba(232,64,43,0.35);
+  border-radius:var(--radius-sm); padding:8px 11px; font-size:12px; font-weight:600; margin-bottom:13px;
+}
+.login-error.show{ display:block; }
+.login-submit{
+  width:100%; padding:11px; border-radius:var(--radius-sm); border:1px solid #E8402B; background:#E8402B;
+  color:#fff; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit;
+}
+.login-submit:hover{ filter:brightness(1.08); }
+.login-demo{ margin-top:22px; padding-top:18px; border-top:1px solid #31343E; }
+.login-demo .lbl{ font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#6B7080; margin-bottom:10px; }
+.login-demo-row{
+  width:100%; text-align:left; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:9px 10px; border-radius:var(--radius-sm); border:1px solid #31343E; background:#22242C;
+  color:#EDEEF2; cursor:pointer; font-family:inherit; margin-bottom:6px;
+}
+.login-demo-row:hover{ border-color:#E8402B; }
+.login-demo-row .role{ font-size:12.5px; font-weight:700; }
+.login-demo-row .who{ font-size:10.5px; color:#9AA0AC; margin-top:1px; }
+.login-demo-row .cred{ font-size:10.5px; color:#6B7080; font-family:"Inter"; text-align:right; white-space:nowrap; }
+.login-note{ margin-top:14px; font-size:10.5px; color:#6B7080; line-height:1.5; text-align:center; }
+
 @media (max-width:900px){
   .nav{ position:fixed; z-index:60; transform:translateX(-100%); transition:transform .18s; box-shadow:var(--shadow); max-width:82vw; }
   .nav.open{ transform:translateX(0); }
@@ -440,7 +498,35 @@ table.tbl td.num, table.tbl th.num{ text-align:right; font-family:"Inter"; font-
 </style>
 </head>
 <body>
-<div class="app">
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo"><img id="loginLogoImg" alt="FIT &amp; FIGHT CLUB — CRM &amp; Management System"></div>
+    <h2 class="disp">Ops Console sign-in</h2>
+    <div class="sub">FIT &amp; FIGHT CLUB &middot; Vashi / Nerul / Wagholi</div>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="login-error" id="loginError">That ID and password don't match a known account.</div>
+      <div class="login-field">
+        <label for="loginId">Employee ID</label>
+        <input type="text" id="loginId" placeholder="you@fitandfightclub.com" autocomplete="username">
+      </div>
+      <div class="login-field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button type="submit" class="login-submit">Sign in</button>
+    </form>
+
+    <div class="login-demo">
+      <div class="lbl">Demo accounts &middot; tap one to sign in</div>
+      <div id="loginDemoList"></div>
+    </div>
+    <div class="login-note">Prototype only — these are sample credentials checked in your browser, not a real login system. Nothing is sent to a server.</div>
+  </div>
+</div>
+
+<div class="app" id="appRoot" style="display:none">
   <aside class="nav" id="navRail">
     <div class="nav-brand">
       <div class="brand-logo-card">
@@ -465,11 +551,16 @@ table.tbl td.num, table.tbl th.num{ text-align:right; font-family:"Inter"; font-
     <ul class="nav-list" id="navInsight"></ul>
 
     <div class="nav-foot">
-      <div class="avatar" id="whoAvatar">FA</div>
-      <div>
-        <div class="who" id="whoName">Founder / Admin</div>
-        <div class="role" id="whoRole">All-access</div>
+      <div class="who-row">
+        <div class="avatar" id="whoAvatar">FA</div>
+        <div style="min-width:0">
+          <div class="who" id="whoName">Founder / Admin</div>
+          <div class="role" id="whoRole">All-access</div>
+        </div>
       </div>
+      <button class="logout-btn" id="logoutBtn" title="Log out" aria-label="Log out">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 2H3.5A1.5 1.5 0 0 0 2 3.5v9A1.5 1.5 0 0 0 3.5 14H6M11 11.5 14.5 8 11 4.5M14.5 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </aside>
 
@@ -791,10 +882,35 @@ function paymentBalance(p){ return Math.max(0, (p.amount||0) - (p.paid||0)); }
 /* ============================================================
    UI state
    ============================================================ */
+/* ============================================================
+   Sign-in (demo only — checked in the browser, not a real backend)
+   ============================================================ */
+const DEMO_ACCOUNTS = [
+  { id:"rohan@fitandfightclub.com",   password:"Admin@123",      role:"admin",        staffId:"S1"  },
+  { id:"ananya.k@fitandfightclub.com",password:"Manager@123",    role:"manager",      staffId:"S2"  },
+  { id:"neha.j@fitandfightclub.com",  password:"Reception@123",  role:"receptionist", staffId:"S5"  },
+  { id:"vikrant.r@fitandfightclub.com",password:"Coach@123",     role:"coach",        staffId:"S8"  },
+  { id:"suresh.p@fitandfightclub.com",password:"Accountant@123", role:"accountant",   staffId:"S14" },
+];
+function findAccount(id, password){
+  const norm = (id||"").trim().toLowerCase();
+  return DEMO_ACCOUNTS.find(a=> a.id.toLowerCase()===norm && a.password===password);
+}
+function isBranchLocked(role){ return role==="manager" || role==="receptionist" || role==="coach"; }
+function getSession(){
+  try{ return JSON.parse(localStorage.getItem("ffc_session")||"null"); }catch(e){ return null; }
+}
+function saveSession(account){
+  localStorage.setItem("ffc_session", JSON.stringify({ staffId:account.staffId, role:account.role }));
+}
+function clearSession(){ localStorage.removeItem("ffc_session"); }
+
 const STATE = {
   view: "dashboard",
   branch: "all",
   role: "admin",
+  actualRole: null,
+  loggedInStaffId: null,
   navOpen: false,
   leadFilter: "all",
   leadSearch: "",
@@ -986,6 +1102,14 @@ document.body.addEventListener("click",(e)=>{
 /* Branch filter chips */
 function buildBranchChips(){
   const row = document.getElementById("branchFilterRow");
+  if(isBranchLocked(STATE.role)){
+    const b = branch(STATE.branch);
+    row.innerHTML = b ? `
+      <span class="chip on" style="cursor:default">
+        <span class="dot" style="background:currentColor"></span>${b.name} &middot; locked to your account
+      </span>` : "";
+    return;
+  }
   const opts = [{key:"all",name:"All branches",color:"var(--ink-3)"}, ...BRANCHES];
   row.innerHTML = opts.map(b=>`
     <button class="chip ${STATE.branch===b.key?'on':''}" data-branch="${b.key}">
@@ -993,16 +1117,19 @@ function buildBranchChips(){
     </button>`).join("");
 }
 document.getElementById("branchFilterRow").addEventListener("click",(e)=>{
+  if(isBranchLocked(STATE.role)) return;
   const b = e.target.closest("[data-branch]");
   if(b){ STATE.branch = b.dataset.branch; render(); }
 });
 
-/* Role select */
+/* Role select — admin only: lets the founder/admin account preview any
+   other role's navigation & scope. Everyone else is locked to the role
+   they signed in with. */
 const roleSel = document.getElementById("roleSelect");
 roleSel.innerHTML = Object.entries(ROLE_LABELS).map(([k,l])=>`<option value="${k}">${l}</option>`).join("");
-roleSel.value = STATE.role;
 roleSel.addEventListener("change",()=>{
   STATE.role = roleSel.value;
+  if(isBranchLocked(STATE.role) && STATE.branch==="all") STATE.branch = BRANCHES[0].key;
   const allowed = visibleViews();
   if(allowed && !allowed.includes(STATE.view)) STATE.view = allowed[0];
   render();
@@ -1026,9 +1153,17 @@ window.addEventListener("resize", updateMobileToggle);
 function updateTopbar(){
   document.getElementById("pageTitle").textContent = VIEW_TITLES[STATE.view] || "";
   document.getElementById("pageToday").textContent = TODAY.toLocaleDateString("en-IN",{weekday:"long", day:"2-digit", month:"long", year:"numeric"}) + " · demo data anchored to this date";
-  document.getElementById("whoName").textContent = ROLE_LABELS[STATE.role];
-  document.getElementById("whoAvatar").textContent = STATE.role==="admin" ? "FA" : initials(ROLE_LABELS[STATE.role]);
-  document.getElementById("whoRole").textContent = STATE.role==="admin" ? "All-branch access" : (branch(STATE.branch)? branch(STATE.branch).name : "Branch-scoped");
+  const me = staffById(STATE.loggedInStaffId);
+  const meName = me ? me.name : ROLE_LABELS[STATE.role];
+  document.getElementById("whoName").textContent = meName;
+  document.getElementById("whoAvatar").textContent = initials(meName);
+  const previewing = STATE.actualRole==="admin" && STATE.role!==STATE.actualRole;
+  document.getElementById("whoRole").textContent = previewing
+    ? `Previewing: ${ROLE_LABELS[STATE.role]}`
+    : (isBranchLocked(STATE.role) ? (branch(STATE.branch)? branch(STATE.branch).name : "Branch-scoped") : "All-branch access");
+  const sel = document.getElementById("roleSelect");
+  sel.style.display = STATE.actualRole==="admin" ? "" : "none";
+  sel.value = STATE.role;
 }
 const RENDERERS = {}; // filled in by each module section below
 
@@ -1041,7 +1176,7 @@ function render(){
   const host = document.getElementById("view");
   const fn = RENDERERS[STATE.view];
   const desc = VIEW_DESC[STATE.view] || "";
-  const roleNote = STATE.role!=="admin" ? `<div class="role-banner">${icon("admin")} Viewing as <strong>&nbsp;${ROLE_LABELS[STATE.role]}</strong>&nbsp;— navigation and data are scoped to this role.</div>` : "";
+  const roleNote = (STATE.actualRole==="admin" && STATE.role!==STATE.actualRole) ? `<div class="role-banner">${icon("admin")} Previewing as <strong>&nbsp;${ROLE_LABELS[STATE.role]}</strong>&nbsp;— navigation and data are scoped to this role. <button class="btn ghost sm" data-action="stopPreview" style="margin-left:auto">Back to my view</button></div>` : "";
   host.innerHTML = `
     <div class="view-head"><div><h2>${VIEW_TITLES[STATE.view]||""}</h2><div class="desc">${desc}</div></div><div id="viewActions"></div></div>
     ${roleNote}
@@ -1212,6 +1347,11 @@ document.body.addEventListener("click",(e)=>{
   const el = e.target.closest("[data-action]");
   if(el){ const act=el.dataset.action; const fn=ACTIONS[act]; if(fn) fn(el.dataset.id, el); }
 });
+ACTIONS.stopPreview = function(){
+  STATE.role = STATE.actualRole;
+  STATE.branch = "all";
+  render();
+};
 
 /* ============================================================
    LEADS & ENQUIRIES
@@ -2068,7 +2208,82 @@ ACTIONS.resetData = function(){ if(confirm("Reset all demo data back to the orig
 /* ============================================================
    Init
    ============================================================ */
-render();
+function renderDemoAccountList(){
+  const host = document.getElementById("loginDemoList");
+  host.innerHTML = DEMO_ACCOUNTS.map(a=>{
+    const s = staffById(a.staffId);
+    const branchLabel = isBranchLocked(a.role) ? ` · ${branch(s.branch).name}` : " · All branches";
+    return `<button type="button" class="login-demo-row" data-demo="${a.id}">
+      <span>
+        <span class="role">${ROLE_LABELS[a.role]}</span><br>
+        <span class="who">${esc(s.name)}${branchLabel}</span>
+      </span>
+      <span class="cred">${a.id}<br>${a.password}</span>
+    </button>`;
+  }).join("");
+}
+document.getElementById("loginDemoList").addEventListener("click",(e)=>{
+  const b = e.target.closest("[data-demo]");
+  if(!b) return;
+  const acc = DEMO_ACCOUNTS.find(a=>a.id===b.dataset.demo);
+  document.getElementById("loginId").value = acc.id;
+  document.getElementById("loginPassword").value = acc.password;
+  attemptLogin();
+});
+
+function attemptLogin(){
+  const id = document.getElementById("loginId").value;
+  const pw = document.getElementById("loginPassword").value;
+  const acc = findAccount(id, pw);
+  const errEl = document.getElementById("loginError");
+  if(!acc){ errEl.classList.add("show"); return; }
+  errEl.classList.remove("show");
+  saveSession(acc);
+  enterApp(acc);
+}
+document.getElementById("loginForm").addEventListener("submit",(e)=>{
+  e.preventDefault();
+  attemptLogin();
+});
+
+function enterApp(account){
+  const staffRec = staffById(account.staffId);
+  STATE.role = account.role;
+  STATE.actualRole = account.role;
+  STATE.loggedInStaffId = account.staffId;
+  STATE.view = "dashboard";
+  STATE.branch = (staffRec && staffRec.branch) ? staffRec.branch : "all";
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("appRoot").style.display = "";
+  document.getElementById("loginForm").reset();
+  document.getElementById("loginError").classList.remove("show");
+  render();
+}
+
+document.getElementById("logoutBtn").addEventListener("click",()=>{
+  clearSession();
+  STATE.loggedInStaffId = null;
+  STATE.actualRole = null;
+  document.getElementById("appRoot").style.display = "none";
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("loginId").focus();
+});
+
+/* the login screen reuses the same embedded logo already sitting in the
+   sidebar markup, rather than duplicating that base64 image a second time */
+document.getElementById("loginLogoImg").src = document.querySelector(".brand-logo-card img").src;
+
+renderDemoAccountList();
+
+const existingSession = getSession();
+const matchedAccount = existingSession && DEMO_ACCOUNTS.find(a=>a.staffId===existingSession.staffId && a.role===existingSession.role);
+if(matchedAccount){
+  enterApp(matchedAccount);
+} else {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("appRoot").style.display = "none";
+  document.getElementById("loginId").focus();
+}
 
 </script>
 </body>
