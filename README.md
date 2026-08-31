@@ -2,7 +2,20 @@
 
 A clickable prototype of a multi-branch gym CRM for **FIT & FIGHT CLUB**
 (Vashi / Nerul / Wagholi) — [fitandfightclub.com](https://www.fitandfightclub.com).
-Dark, red-accent brand styling set in Oswald (headers/numbers) and Inter (body/UI).
+Dark, red-accent brand styling set in Oswald (headers/numbers) and Inter
+(body/UI).
+
+**This build is a single self-contained `index.html`** — all CSS and
+JavaScript are inlined into the one file. That's deliberate: an earlier
+split-file version (`index.html` + `css/` + `js/`) hit a real-world snag —
+when pushed to GitHub, the `css/` and `js/` folders didn't make it into the
+repo (a common gotcha with GitHub's web "upload files" flow, which doesn't
+always preserve subfolders), so the deployed page loaded with no styling and
+no data. A single file can't have that problem — there's nothing that can go
+missing on push. If you'd rather have it split into separate CSS/JS files for
+easier editing, ask and it can be regenerated that way — just double-check
+on github.com afterward that the `css/` and `js/` folders actually show up
+in the repo's file browser before assuming it deployed correctly.
 
 This is the Phase 1 MVP scope: leads & trials, member profiles, memberships &
 payments, class scheduling & attendance, follow-up tasks & message templates,
@@ -14,40 +27,17 @@ backend, database, authentication, or real WhatsApp/SMS/email sending behind
 it — see [Limitations](#limitations--whats-not-real) below before you rely on
 it for anything beyond reviewing the data model and user flows.
 
-## File structure
-
-```
-index.html        markup only — links css/styles.css and js/data.js, js/app.js
-css/
-  styles.css       design tokens, layout, every component style
-js/
-  data.js          seed data (branches, leads, members, plans, classes, …) + small date/format helpers
-  app.js           app state, localStorage persistence, router, all module renderers, form/modal logic
-README.md
-.gitignore
-```
-
-No build step, no framework, no bundler — plain HTML/CSS/JS, loaded as three
-static files. `js/data.js` must load before `js/app.js` (already wired that
-way in `index.html`).
-
 ## Quick start
 
-- **Open locally** — because it's now split into separate files, open it
-  through a local server rather than double-clicking `index.html` (browsers
-  block `fetch`-free `<script src>` relative loads over `file://` in some
-  setups, and a server matches how GitHub Pages will actually serve it):
-  ```bash
-  npx serve .
-  # or
-  python3 -m http.server 8080
-  ```
-  then visit `http://localhost:8080`.
+- **Open locally** — just double-click `index.html`. No server, no build
+  step, nothing to install.
 - **GitHub Pages** — push this repo, then in **Settings → Pages** set the
   source to the `main` branch, root folder. Your console will be live at
-  `https://<your-username>.github.io/<repo-name>/`.
+  `https://<your-username>.github.io/<repo-name>/`. Since it's one file,
+  there's no folder structure to lose in the push — `git add index.html`
+  (or `git add .`) and `git push` is enough.
 - **Any static host** — Netlify, Vercel, Cloudflare Pages, S3, etc. all just
-  need the folder served as static files with `index.html` at the root.
+  need `index.html` served as a static file.
 
 ## What's inside
 
@@ -96,11 +86,10 @@ directly.
 
 ## Tech notes
 
-Vanilla HTML/CSS/JS, no build step, no framework. Fonts (Oswald for headers
-and large numbers, Inter for everything else) load from Google Fonts over a
-CDN link; everything else — layout, components, data, logic — is
-self-contained across the three files above. The palette is a single
-committed dark theme (surfaces `#111216` → `#2A2D36`, red accent `#E8402B`,
-blue/purple/green for the three branches, green/amber/red for status) defined
-as CSS custom properties at the top of `css/styles.css` — change the values
-there to retheme the whole app.
+Vanilla HTML/CSS/JS, no build step, no framework, everything in one file.
+Fonts (Oswald for headers and large numbers, Inter for everything else) load
+from Google Fonts over a CDN link; that's the only external request the page
+makes. The palette is a single committed dark theme (surfaces `#111216` →
+`#2A2D36`, red accent `#E8402B`, blue/purple/green for the three branches,
+green/amber/red for status) defined as CSS custom properties at the top of
+the `<style>` block — change the values there to retheme the whole app.
